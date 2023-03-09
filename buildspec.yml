@@ -13,7 +13,7 @@ phases:
     commands:
       - >
         aws cloudformation package
-        --s3-bucket $S3_BUCKET_FOR_LAMBDA_CODE
+        --s3-bucket testing-bucket-agupta
         --template-file .aws-sam/build/template.yaml
         --output-template-file packaged.yaml
 
