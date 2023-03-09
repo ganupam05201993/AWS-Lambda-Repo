@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - npm install
+
+  build:
+    commands:
+      - npm run build
+
+  post_build:
+    commands:
+      - >
+        aws cloudformation package
+        --s3-bucket $S3_BUCKET_FOR_LAMBDA_CODE
+        --template-file .aws-sam/build/template.yaml
+        --output-template-file packaged.yaml
+
+artifacts:
+     files:
+      - packaged.yaml

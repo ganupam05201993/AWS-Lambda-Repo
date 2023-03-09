@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: wave-cognito-lambdas
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+
+Resources:
+  MigrateUserTrigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/user-migration-lambdas
+      Handler: userMigration.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        EntryPoints:
+          - userMigration.ts
+  CustomMessageTrigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/custom-messages-lambdas
+      Handler: customMessage.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        EntryPoints:
+          - customMessage.ts
+  CustomEmailTrigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/custom-email-lambdas
+      Handler: customEmail.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        EntryPoints:
+          - customEmail.ts      
