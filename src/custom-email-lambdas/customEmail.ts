@@ -41,6 +41,7 @@ export const generateCustomEmailResponse = async (
   const useremail = event.request.userAttributes.email!;
   try {
     let payload = '';
+    console.log(JSON.stringify(event);
     if (event.request.code) {
       const { plaintext, messageHeader } = await decrypt(
         kmsKeyring,
